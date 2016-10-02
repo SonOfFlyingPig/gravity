@@ -41,6 +41,7 @@ public:
 			cerr << "Warning: could not set vsync" << endl;
 		}
 		resetProjectionMatrix();
+		multiplyOrthoMatrix(-200.0, 200.0, -200.0, 200.0, -1.0, 1.0);
 		resetModelviewMatrix();
 		setClearColor(BLACK);
 	}
@@ -51,6 +52,10 @@ public:
 			drawCircle(ball.location.x, ball.location.y, ball.radius);
 		}
 		window.swapGlWindow();
+	}
+
+	Point getPointFromPixel(int32_t x, int32_t y) {
+		return sofp::opengl::getPointFromPixel(x, y);
 	}
 
 };
@@ -70,15 +75,25 @@ void GravitySdlApp::run(int argc, char* argv[]) {
 	}
 
 	SecondsTimer timer;
+//	Universe universe = getSimpleOrbitUniverse();
 	Universe universe;
 	SdlOpenglGravityRenderer renderer;
 	for (;;) {
 		PossibleEvent possibleEvent = pollForEvent();
-		if (possibleEvent.exists && possibleEvent.event.type == Event::Type::QUIT) {
-			break;
+		if (possibleEvent.exists) {
+			Event event = possibleEvent.event;
+			if (event.type == Event::Type::QUIT) {
+				break;
+			} else if (event.type == Event::Type::MOUSE_BUTTON_DOWN) {
+				Ball newBall;
+				newBall.location = renderer.getPointFromPixel(event.mouseButtonEventData.x, event.mouseButtonEventData.y);
+				newBall.velocity = {0.0, 0.0};
+				newBall.radius = 10.0;
+				newBall.massInKg = 1000.0 * 1000.0 * 1000.0 * 1000.0 * 1000.0;
+				universe.balls.push_back(newBall);
+			}
 		}
-//		universe.update(timer.click());
-		universe.update(1 / 60.0);
+		universe.update(timer.click());
 		renderer.render(universe);
 	}
 }

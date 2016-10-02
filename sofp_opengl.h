@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include "geometry.h"
+
 namespace sofp {
 
 namespace opengl {
@@ -16,6 +18,8 @@ struct Exception;
 
 void clearColorBuffer();
 void drawCircle(double x, double y, double r);
+Point getPointFromPixel(int32_t x, int32_t y);
+void multiplyOrthoMatrix(double left, double right, double bottom, double top, double front, double back);
 void resetProjectionMatrix();
 void resetModelviewMatrix();
 void setClearColor(const Color& color);
@@ -26,7 +30,7 @@ struct Color {
 	float blue;
 	float alpha;
 };
-static const Color BLACK = {0.0f, 0.0f, 0.0f, 1.0f};
+static const Color BLACK = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 struct Exception {
 	const std::string message;

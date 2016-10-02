@@ -21,6 +21,7 @@ struct Vector {
 
 	Vector operator*(double d) const;
 	Vector& operator+=(const Vector& vector);
+	Vector& operator-=(const Vector& vector);
 
 	double magnitude() const;
 	Vector unitVector() const;

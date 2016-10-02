@@ -14,6 +14,8 @@ enum struct GlSwapInterval {
 
 struct Exception;
 struct Event;
+struct IncorrectEventType;
+struct MouseButtonEventData;
 struct PossibleEvent;
 
 class App;
@@ -35,14 +37,33 @@ public:
 
 };
 
+struct MouseButtonEventData {
+
+	int32_t x;
+	int32_t y;
+
+};
+
+struct QuitEventData {
+	uint32_t timeStamp;
+};
+
 struct Event {
 
 public:
 	enum struct Type {
-		QUIT, UNKNOWN
+		MOUSE_BUTTON_DOWN, QUIT, UNKNOWN
 	};
 
-	Type type;
+	const Type type;
+	const union {
+		MouseButtonEventData mouseButtonEventData;
+		QuitEventData quitEventData;
+	};
+
+	Event(Type type);
+	Event(Type type, const MouseButtonEventData& mouseButtonEventData);
+	Event(Type type, const QuitEventData& quitEventData);
 
 };
 
@@ -50,6 +71,10 @@ struct Exception {
 	const std::string message;
 
 	Exception(const std::string& message);
+};
+
+struct IncorrectEventTypeException: Exception {
+	IncorrectEventTypeException(const std::string& message);
 };
 
 struct PossibleEvent {
@@ -81,7 +106,6 @@ public:
 class OpenglWindow: public Window {
 
 public:
-//	OpenglWindow(const std::string& title, const int width, const int height);
 	OpenglWindow(const std::string& title, const int width, const int height, const int glMajorVersion, const int glMinorVersion);
 
 };

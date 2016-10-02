@@ -36,6 +36,13 @@ Vector& Vector::operator+=(const Vector& vector) {
 	return *this;
 }
 
+Vector& Vector::operator-=(const Vector& vector) {
+	x -= vector.x;
+	y -= vector.y;
+
+	return *this;
+}
+
 double Vector::magnitude() const {
 	return sqrt(x * x + y * y);
 }

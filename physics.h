@@ -9,6 +9,8 @@ struct Ball;
 
 class Universe;
 
+Universe getSimpleOrbitUniverse();
+
 struct Ball {
 	Point location;
 	Vector velocity;
@@ -18,13 +20,8 @@ struct Ball {
 
 class Universe {
 
-//private:
-//	std::chrono::high_resolution_clock::time_point lastTickTimePoint;
-
 public:
 	std::vector<Ball> balls;
-	Universe();
-//	void update();
 	void update(double timeIncrement);
 
 };

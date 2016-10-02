@@ -9,19 +9,17 @@ namespace sofp {
 namespace sdl {
 
 Event getEvent(SDL_Event sdlEvent) {
-	Event result;
-
 	switch (sdlEvent.type) {
 
 	case SDL_QUIT:
-		result.type = Event::Type::QUIT;
-		break;
+		return Event(Event::Type::QUIT, QuitEventData { sdlEvent.quit.timestamp });
+
+	case SDL_MOUSEBUTTONDOWN:
+		return Event(Event::Type::MOUSE_BUTTON_DOWN, MouseButtonEventData { sdlEvent.button.x, sdlEvent.button.y });
 
 	default:
-		result.type = Event::Type::UNKNOWN;
+		return Event(Event::Type::UNKNOWN);
 	}
-
-	return result;
 }
 
 PossibleEvent pollForEvent() {
@@ -62,6 +60,31 @@ App::~App() {
 
 Exception::Exception(const string& message) :
 		message(message) {
+}
+
+Event::Event(Type type) :
+		type(type) {
+	if (type != Type::UNKNOWN) {
+		throw IncorrectEventTypeException("type must be Type::UNKNOWN for no-data constructor");
+	}
+}
+
+Event::Event(Type type, const MouseButtonEventData& mouseButtonEventData) :
+		type(type), mouseButtonEventData(mouseButtonEventData) {
+	if (type != Type::MOUSE_BUTTON_DOWN) {
+		throw IncorrectEventTypeException("type must be Type::MOUSE_BUTTON_DOWN for mouseButtonEventData");
+	}
+}
+
+Event::Event(Type type, const QuitEventData& quitEventData) :
+		type(type), quitEventData(quitEventData) {
+	if (type != Type::QUIT) {
+		throw IncorrectEventTypeException("type must be Type::QUIT for quitEventData");
+	}
+}
+
+IncorrectEventTypeException::IncorrectEventTypeException(const string& message) :
+		Exception(message) {
 }
 
 class GlContext::Impl {
