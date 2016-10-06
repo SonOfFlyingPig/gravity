@@ -4,22 +4,27 @@
 struct Point;
 struct Vector;
 
+Point operator+(const Point& point, const Vector& vector);
+Vector operator-(const Point& point0, const Point& point1);
+
 struct Point {
 	double x;
 	double y;
 
-	Point operator+(const Vector& vector) const;
 	Point& operator+=(const Vector& vector);
-	Vector operator-(const Point& point) const;
 
 	double distanceTo(const Point& point) const;
 };
+
+Vector operator+(const Vector& vector0, const Vector& vector1);
+Vector operator-(const Vector& vector0, const Vector& vector1);
+Vector operator*(const double d, const Vector& vector);
+Vector operator/(const Vector& vector, const double d);
 
 struct Vector {
 	double x;
 	double y;
 
-	Vector operator*(double d) const;
 	Vector& operator+=(const Vector& vector);
 	Vector& operator-=(const Vector& vector);
 

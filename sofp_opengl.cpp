@@ -1,7 +1,9 @@
 #include <cmath>
 #include <string>
 
+#ifdef _WIN32
 #include <windows.h>
+#endif
 #include <GL/glu.h>
 
 #include "sofp_opengl.h"

@@ -26,6 +26,6 @@ public:
 
 };
 
-Vector calculateGravity(const Ball& ball0, const Ball& ball1);
+Vector calculateGravity(const Ball& ball0, const Ball& ball1, const double softeningLength = 10.0);
 
 #endif

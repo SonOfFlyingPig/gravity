@@ -157,6 +157,6 @@ int mainImpl(int argc, char** argv) {
 
 }
 
-#define DEFINE_SOFP_SDL_APP__MAIN(A) int main(int argc, char** argv) { return sofp::sdl::mainImpl<A>(argc, argv); }
+#define DEFINE_SOFP_SDL_APP_MAIN(A) int main(int argc, char** argv) { return sofp::sdl::mainImpl<A>(argc, argv); }
 
 #endif

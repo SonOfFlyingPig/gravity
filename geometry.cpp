@@ -2,12 +2,12 @@
 
 #include "geometry.h"
 
-Point Point::operator+(const Vector& vector) const {
-	Point result = *this;
-	result.x += vector.x;
-	result.y += vector.y;
+Point operator+(const Point& point, const Vector& vector) {
+	return Point { point.x + vector.x, point.y + vector.y };
+}
 
-	return result;
+Vector operator-(const Point& point0, const Point& point1) {
+	return Vector { point0.x - point1.x, point0.y - point1.y };
 }
 
 Point& Point::operator+=(const Vector& vector) {
@@ -17,16 +17,24 @@ Point& Point::operator+=(const Vector& vector) {
 	return *this;
 }
 
-Vector Point::operator-(const Point& point) const {
-	return Vector { x - point.x, y - point.y };
-}
-
 double Point::distanceTo(const Point& point) const {
 	return (point - *this).magnitude();
 }
 
-Vector Vector::operator*(double d) const {
-	return Vector { d * x, d * y };
+Vector operator+(const Vector& vector0, const Vector& vector1) {
+	return Vector { vector0.x + vector1.x, vector0.y + vector1.y };
+}
+
+Vector operator-(const Vector& vector0, const Vector& vector1) {
+	return Vector { vector0.x - vector1.x, vector0.y - vector1.y };
+}
+
+Vector operator*(double d, const Vector& vector) {
+	return Vector { d * vector.x, d * vector.y };
+}
+
+Vector operator/(const Vector& vector, const double d) {
+	return Vector { vector.x / d, vector.y / d };
 }
 
 Vector& Vector::operator+=(const Vector& vector) {

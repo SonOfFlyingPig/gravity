@@ -94,8 +94,9 @@ void GravitySdlApp::run(int argc, char* argv[]) {
 			}
 		}
 		universe.update(timer.click());
+//		universe.update(1 / 60.0);
 		renderer.render(universe);
 	}
 }
 
-DEFINE_SOFP_SDL_APP__MAIN(GravitySdlApp)
+DEFINE_SOFP_SDL_APP_MAIN(GravitySdlApp)
