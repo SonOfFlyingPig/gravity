@@ -1,0 +1,2 @@
+gravity:
+	c++ -I/usr/local/include -L/usr/local/lib -std=c++11 -o gravity geometry.cpp gravity.cpp sofp_sdl.cpp physics.cpp sofp_opengl.cpp -lSDL2 -lGL -lGLU
