@@ -63,16 +63,18 @@ public:
 class GravitySdlApp: App {
 
 public:
-	void run(int argc, char* argv[]) override;
+	void run(/*int argc, char* argv[]*/) override;
 };
 
-void GravitySdlApp::run(int argc, char* argv[]) {
+void GravitySdlApp::run(/*int argc, char* argv[]*/) {
+	/*
 	if (argc != 1) {
 		throw invalid_argument("argc");
 	}
 	if (argv == NULL) {
 		throw invalid_argument("argv");
 	}
+	*/
 
 	SecondsTimer timer;
 //	Universe universe = getSimpleOrbitUniverse();
@@ -99,4 +101,8 @@ void GravitySdlApp::run(int argc, char* argv[]) {
 	}
 }
 
+#ifdef _WIN32
+DEFINE_SOFP_SDL_APP_WINMAIN(GravitySdlApp)
+#else
 DEFINE_SOFP_SDL_APP_MAIN(GravitySdlApp)
+#endif
