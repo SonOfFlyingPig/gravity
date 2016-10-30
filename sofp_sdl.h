@@ -142,11 +142,11 @@ public:
 };
 
 template<typename A>
-int mainImpl(int argc, char** argv) {
+int mainImpl(/*int argc, char** argv*/) {
 	static_assert(std::is_base_of<App, A>::value, "A not derived from sdl::App");
 
 	try {
-		A().run(argc, argv);
+		A().run(/*argc, argv*/);
 	} catch (const Exception& exception) {
 		std::cerr << "sdl::Exception: " << exception.message << std::endl;
 		return EXIT_FAILURE;
@@ -181,7 +181,7 @@ int CALLBACK winMainImpl(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance,
 
 }
 
-#define DEFINE_SOFP_SDL_APP_MAIN(A) int main(int argc, char** argv) { return sofp::sdl::mainImpl<A>(argc, argv); }
+#define DEFINE_SOFP_SDL_APP_MAIN(A) int main(int argc, char** argv) { return sofp::sdl::mainImpl<A>(/*argc, argv*/); }
 
 #ifdef _WIN32
 #define DEFINE_SOFP_SDL_APP_WINMAIN(A) int CALLBACK WinMain(_In_ HINSTANCE hInstance, _In_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow) { return sofp::sdl::winMainImpl<A>(hInstance, hPrevInstance, lpCmdLine, nCmdShow); }
