@@ -2,7 +2,6 @@ cmake_minimum_required (VERSION 3.5) # in reality I'm sure it's less
 project(gravity)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_MODULE_PATH $ENV{CMAKE_MODULE_PATH})
-message(STATUS "CMAKE_MODULE_PATH: ${CMAKE_MODULE_PATH}")
 
 add_executable(gravity geometry.cpp gravity.cpp physics.cpp sofp_opengl.cpp sofp_sdl.cpp)
 
